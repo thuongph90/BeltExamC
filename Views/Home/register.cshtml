@@ -1,0 +1,37 @@
+
+    <div class="log"><label>Register</label></div>
+    @model User
+    <form asp-action="Register" asp-controller="Home" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="font">First Name</label>
+                <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
+                <span class="alert" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font">Last Name</label>
+                <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                <span class="alert" asp-validation-for="LastName"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="font">Email</label>
+                <input asp-for="Email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <span class="alert" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="font">Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                <span class="alert" asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font">Confirm Password</label>
+                <input asp-for="Confirm" type="password" class="form-control" placeholder="Password">
+                <span class="alert" asp-validation-for="Confirm"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>

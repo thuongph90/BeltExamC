@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+</head>
+<style>
+    body {
+        background-color: rgb(231, 235, 219);
+    }
+</style>
+<body>
+        <div class="header">
+                <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eb9ab9; font-size: 15px">
+                    <h2> Coding Dojo Center</h2>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Welcome @ViewBag.CurUser.FirstName! <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/Dashboard">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Logout">Logout</a>
+                            </li>
+        
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="container">
+                    
+                    <h3>Activity : @ViewBag.DeAct.Title</h3>
+                    <h3>Coordinator Name: @ViewBag.DeAct.Creator.FirstName</h3>
+                    <h3>Time:  @ViewBag.DeAct.Time, @ViewBag.DeAct.Date.ToString("dddd, MM-dd-yyyy ") </h3>
+                    <div> Description</div>
+                    <h4>@ViewBag.DeAct.Description</h4>
+                    <label>Participants: </label>
+                    @foreach( var e in @ViewBag.DeAct.UserToAct){
+                        <li>@e.Users.FirstName</li>
+                    }
+                    
+
+                    @if(ViewBag.CurUser.UserId != ViewBag.DeAct.CreatorId){
+                    int temp=0;
+                    @foreach( var guest in @ViewBag.DeAct.UserToAct){
+                        if(guest.Users== ViewBag.CurUser){
+                            temp=guest.Users.UserId;
+                        }
+                    }
+                    @if(temp==0){
+                        <h3><a href="/Join/@ViewBag.DeAct.ActivityId">Join</a> </h3>
+                    }
+                    else{
+                    <h3><a href="/Leave/@ViewBag.DeAct.ActivityId">Leave</a> </h3>
+                    }
+                 
+                } 
+                else{ <h3><a href="/Delete/@ViewBag.DeAct.ActivityId">Delete</a> </h3>
+                }
+            </div>
+    
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        background-color: rgb(231, 235, 219);
+    }
+    .alert{
+        color:red;
+    }
+    .select{
+        margin-top: 25px;
+    }
+</style>
+<body>
+        <div class="header">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eb9ab9; font-size: 15px">
+            <h2> Coding Dojo Center</h2>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Welcome @ViewBag.User1.FirstName! <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Dashboard">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Logout">Logout</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <h3>Add A new Actvity!</h3>
+    @model Activity
+    <form asp-action="Create" asp-controller="Home" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="font">Title</label>
+                <input asp-for="Title" type="text" class="form-control" placeholder="Enter Actvity's title here">
+                <span class="alert" asp-validation-for="Title"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font">Time</label>
+                <input asp-for="Time" type="text" class="form-control" placeholder="5:00 AM">
+                <span class="alert" asp-validation-for="Time"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="font">Date</label>
+                <input asp-for="Date" type="text" class="form-control selector" placeholder="Enter Actvity's title here">
+                <span class="alert" asp-validation-for="Date"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="font">Duration</label>
+                <input asp-for="DurationNum" type="text" class="form-control" placeholder="0">
+                <span class="alert" asp-validation-for="DurationNum"></span>
+                
+            </div>
+            <div class="form-group col-md-2">
+                
+                <select class="select" asp-for="DurationStr">
+                    <option>Days</option>
+                    <option>Hours</option>
+                    <option>Minutes</option>
+                </select>
+                <span class="alert" asp-validation-for="DurationStr"></span>
+            </div>
+        </div>
+        <div class="form-group">
+                <label class="font">Description</label>
+                <textarea class="form-control" asp-for="Description" rows="3">
+
+                </textarea>
+                <span class="alert" asp-validation-for="Description"></span>
+        </div>
+        <input type="hidden" asp-for="CreatorId" value="@ViewBag.User1.UserId">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+     <!-- Leave Jquerry in the end -->
+   <script>
+        $( ".selector" ).datepicker({
+         minDate: new Date(),
+         changeYear: true
+         });
+    </script>
+</body>
+
+</html>

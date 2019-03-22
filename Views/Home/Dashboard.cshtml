@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<style>
+    body {
+        background-color: rgb(231, 235, 219);
+    }
+    .alert{
+        color: red;
+    }
+</style>
+
+<body>
+    <div class="header">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eb9ab9; font-size: 15px">
+            <h2> Coding Dojo Center</h2>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Welcome @ViewBag.CurUser.FirstName! <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/NewAct">Add New Activity <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Logout">Logout</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <!-- <h3>Welcome @ViewBag.CurUser.FirstName to Dashboard</h3> -->
+    <!-- <a href="/Logout">Logout</a>
+    <a href="NewAct">Add New Activity</a> -->
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Activity</th>
+                <th scope="col">Date & Time</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Event Cordinator</th>
+                <th scope="col">Number of Participants</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var e in ViewBag.AllActs){
+            <tr>
+                <td><a href="Detail/@e.ActivityId">@e.Title</a></td>
+                <td>@e.Date.ToString("dddd, MM-dd-yyyy ") at @e.Time </td>
+                <td>@e.DurationNum @e.DurationStr</td>
+                <td>@e.Creator.FirstName</td>
+                <td>@e.UserToAct.Count</td>
+                <!-- <td><a href="Join/@e.ActivityId">Join</a></td> -->
+                @if(ViewBag.CurUser.UserId != e.CreatorId){
+                    int temp=0;
+                    @foreach( var guest in @e.UserToAct){
+                        if(guest.Users== ViewBag.CurUser){
+                            temp=guest.Users.UserId;
+                        }
+                    }
+                    @if(temp==0){
+                        <td><a href="/Join/@e.ActivityId">Join</a></td>   
+                    }
+                    else{
+                    <td><a href="/Leave/@e.ActivityId">Leave</a></td>
+                    }
+                 
+                } 
+                else{ <td><a href="/Delete/@e.ActivityId">Delete</a></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="alert">@ViewBag.SameDate</div>
+</body>
+
+</html>
